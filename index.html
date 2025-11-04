@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>东航航班与行李动态查询</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- html5-qrcode (minified) -->
+  <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+  <style>
+    /* 扫码区域小样式，确保在页面中显示良好 */
+    #scanner-overlay {
+      position: fixed;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    #reader {
+      width: 320px;
+      height: 320px;
+      background: #fff;
+      border-radius: 8px;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    #scanner-controls {
+      text-align: center;
+      margin-top: 8px;
+    }
+    #scanner-close {
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: #999;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>航班与行李动态查询</h1>
+    <p id="current-time"></p>
+  </header>
+
+  <main>
+    <section class="search-section">
+      <input type="text" id="flight-input" placeholder="请输入航班号 (如 MU5126 或 5126)" />
+      <input type="date" id="date-input" />
+      <div class="btn-row" style="width:80%;max-width:420px;margin:0 auto;display:flex;gap:0.6rem;">
+        <button id="search-btn" class="primary-btn" style="flex:1;">查询</button>
+        <button id="scan-btn" class="scan-btn" style="flex:1;">📷 扫描登机牌二维码</button>
+      </div>
+    </section>
+
+    <div id="loading" class="loading" style="display:none;">查询中，请稍候...</div>
+    <div id="message" class="message" style="display:none;"></div>
+
+    <section id="result-section" class="result-section" style="display:none;">
+      <h2>航班信息</h2>
+      <div id="flight-info"></div>
+
+      <h2>行李动态</h2>
+      <div id="baggage-info"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 中国东方航空</p>
+  </footer>
+
+  <!-- 扫码弹层（初始隐藏） -->
+  <div id="scanner-overlay" style="display:none;">
+    <div>
+      <div id="reader"></div>
+      <div id="scanner-controls">
+        <button id="scanner-close">关闭扫码</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
